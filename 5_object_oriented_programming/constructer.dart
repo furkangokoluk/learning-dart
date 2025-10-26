@@ -7,11 +7,18 @@ void main(List<String> args) {
 
   Car c3 = Car.modelYear(2007);
   c3.printCarInfo();
+
+  Car c4 = Car.factoryConstructer("Mercedes", null);
+  c4.printCarInfo();
 }
 
 class Car {
   int? modelYear;
   String? brand;
+
+  void printCarInfo() {
+    print("Bu arabanın model yılı : $modelYear, markası : $brand");
+  }
 
   // Default kurucu metot
   // Car () {
@@ -36,7 +43,15 @@ class Car {
     this.brand = "Belirtilmemiş";
   }
 
-  void printCarInfo() {
-    print("Bu arabanın model yılı : $modelYear, markası : $brand");
+  factory Car.factoryConstructer(String? brand, int? modelYear) {
+    if (brand == null) {
+      return Car.modelYear(modelYear);
+    }
+
+    if (modelYear == null) {
+      return Car.brand(brand);
+    }
+
+    return Car(brand, modelYear);
   }
 }
